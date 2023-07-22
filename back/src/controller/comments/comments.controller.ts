@@ -1,26 +1,30 @@
 import { Controller, Post, Body, Get, UseGuards } from '@nestjs/common';
-import { CommentsUseCase } from '../../domain/usecase/comments/comments.usecase';
+import { CommentsCreateUseCase } from '../../domain/usecase/comments/comments_create.usecase';
+import { CommentsFindAllUseCase } from '../../domain/usecase/comments/comments_findall.usecase';
+import { CommentsFindByIdUseCase } from '../../domain/usecase/comments/comments_findallbyid.usecase';
 import { AuthGuard } from '../../utils/services/auth/jwt.auth.guard';
 
 @Controller('comments')
 export class CommentsController {
-    constructor(private commentsUseCase: CommentsUseCase) { }
+    constructor(private commentsCreateUseCase: CommentsCreateUseCase,
+        private CommentsFindAllUseCase: CommentsFindAllUseCase,
+        private CommentsFindByIdUseCase: CommentsFindByIdUseCase) { }
 
     @UseGuards(AuthGuard)
     @Post()
     async create(@Body() body) {
-        return await this.commentsUseCase.create(body);
+        return await this.commentsCreateUseCase.execute(body);
     }
 
     @UseGuards(AuthGuard)
     @Get()
     async findAll() {
-        return await this.commentsUseCase.findAll();
+        return await this.CommentsFindAllUseCase.execute();
     }
 
     @UseGuards(AuthGuard)
     @Post('/filter')
     async findAllById(@Body() body) {
-        return await this.commentsUseCase.findAllById(body);
+        return await this.CommentsFindByIdUseCase.execute(body);
     }
 }

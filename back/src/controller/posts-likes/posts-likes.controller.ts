@@ -1,20 +1,22 @@
 import { Controller, Post, Body, Get, UseGuards } from '@nestjs/common';
-import { PostsLikesUseCase } from '../../domain/usecase/post_likes/posts_likes.usecase';
+import { PostsLikesCreateUseCase } from '../../domain/usecase/post_likes/posts_likes_create.usecase';
+import { PostsLikesFindAllUseCase } from '../../domain/usecase/post_likes/posts_likes_findall.usecase';
 import { AuthGuard } from '../../utils/services/auth/jwt.auth.guard';
 
 @Controller('posts-likes')
 export class PostsLikesController {
-    constructor(private postsLikesUseCase: PostsLikesUseCase) { }
+    constructor(private postsLikesCreateUseCase: PostsLikesCreateUseCase,
+        private postsLikesFindAllUseCase: PostsLikesFindAllUseCase) { }
 
     @UseGuards(AuthGuard)
     @Post()
     async create(@Body() body) {
-        return await this.postsLikesUseCase.create(body);
+        return await this.postsLikesCreateUseCase.execute(body);
     }
 
     @UseGuards(AuthGuard)
     @Get()
     async findAll() {
-        return await this.postsLikesUseCase.findAll();
+        return await this.postsLikesFindAllUseCase.execute();
     }
 }

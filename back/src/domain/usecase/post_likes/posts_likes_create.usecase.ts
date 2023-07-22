@@ -2,14 +2,10 @@ import { Injectable } from '@nestjs/common';
 import { PostsLikesRepository } from '../../../infraestructure/repository/post_likes/post_likes.repository'
 
 @Injectable()
-export class PostsLikesUseCase {
+export class PostsLikesCreateUseCase {
     constructor(private postsLikesRepository: PostsLikesRepository) { }
 
-    async create(data) {
+    async execute(data) {
         return await this.postsLikesRepository.create(data);
-    }
-
-    async findAll() {
-        return await this.postsLikesRepository.findAll();
     }
 }

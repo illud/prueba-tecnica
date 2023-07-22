@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { PostsLikesUseCase } from './posts_likes.usecase';
+import { PostsLikesUseCase } from './posts_likes_create.usecase';
 
 describe('PostsLikesService', () => {
   let service: PostsLikesUseCase;

@@ -1,6 +1,8 @@
 import { Module } from '@nestjs/common';
 import { CommentsController } from './comments.controller';
-import { CommentsUseCase } from '../../domain/usecase/comments/comments.usecase';
+import { CommentsCreateUseCase } from '../../domain/usecase/comments/comments_create.usecase';
+import { CommentsFindAllUseCase } from '../../domain/usecase/comments/comments_findall.usecase';
+import { CommentsFindByIdUseCase } from '../../domain/usecase/comments/comments_findallbyid.usecase';
 import { PrismaModule } from 'src/prisma/prisma.module';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { JwtService } from '../../utils/services/jwt/jwt.service';
@@ -8,6 +10,6 @@ import { CommentsRepository } from '../../infraestructure/repository/comments/co
 
 @Module({
   controllers: [CommentsController],
-  providers: [CommentsUseCase, CommentsRepository, PrismaModule, PrismaService, JwtService]
+  providers: [CommentsCreateUseCase, CommentsFindAllUseCase, CommentsFindByIdUseCase, CommentsRepository, PrismaModule, PrismaService, JwtService]
 })
 export class CommentsModule { }
