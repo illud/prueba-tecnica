@@ -1,6 +1,10 @@
 import { Module } from '@nestjs/common';
 import { UsersController } from './users.controller';
-import { UsersUseCase } from '../../domain/usecase/users/users.usecase';
+import { UsersCreateUseCase } from '../../domain/usecase/users/users_create.usecase';
+import { UsersLoginUseCase } from '../../domain/usecase/users/users_login.usecase';
+import { UsersUpdateUseCase } from '../../domain/usecase/users/users_update.usecase';
+import { UsersFindAllUseCase } from '../../domain/usecase/users/users_findall.usecase';
+import { UsersFindOneUseCase } from '../../domain/usecase/users/users_findone.usecase';
 import { PrismaModule } from 'src/prisma/prisma.module';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { BcryptService } from '../../utils/services/bcrypt/bcrypt.service';
@@ -9,6 +13,11 @@ import { UsersRepository } from '../../infraestructure/repository/users/users.re
 
 @Module({
   controllers: [UsersController],
-  providers: [UsersUseCase, UsersRepository, PrismaModule, PrismaService, BcryptService, JwtService]
+  providers: [UsersCreateUseCase,
+    UsersLoginUseCase,
+    UsersUpdateUseCase,
+    UsersFindAllUseCase,
+    UsersFindOneUseCase,
+    UsersRepository, PrismaModule, PrismaService, BcryptService, JwtService]
 })
 export class UsersModule { }

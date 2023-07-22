@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { UsersUseCase } from './users.usecase';
+import { UsersUseCase } from './users_create.usecase';
 
 describe('UsersService', () => {
   let usersUseCase: UsersUseCase;
