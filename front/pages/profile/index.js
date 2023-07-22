@@ -12,16 +12,13 @@ import Typography from '@mui/material/Typography';
 import { useState, useEffect } from 'react';
 import Tabs from 'react-bootstrap/Tabs';
 import Tab from 'react-bootstrap/Tab';
-// import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import TextField from '@mui/material/TextField';
-import { useRouter } from 'next/router';
 import { toast } from 'react-toastify';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DatePicker from '@mui/lab/DatePicker';
-import Link from 'next/link';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 
@@ -49,7 +46,6 @@ export default function Profile() {
 
 
     const [image, setImage] = useState(null)
-    const [modalShow, setModalShow] = useState(false);
 
     const [open, setOpen] = useState(false);
     const handleOpen = () => {
@@ -115,73 +111,11 @@ export default function Profile() {
 
     }
 
-    function formatDates(date) {
-        return new Date(date);
-    }
-
-
     const onImageChange = (event) => {
         if (event.target.files && event.target.files[0]) {
             setImage(URL.createObjectURL(event.target.files[0]));
         }
     }
-
-    // function MyVerticallyCenteredModal(props) {
-
-    //     setfullname(userData.fullname);
-    //     setage(userData.age);
-    //     setemail(userData.email);
-    //     setValue(userData.dateofborn);
-
-
-    //     return (
-    //         <Modal
-    //             {...props}
-    //             size="lg"
-    //             aria-labelledby="contained-modal-title-vcenter"
-    //             centered
-    //         >
-    //             <Modal.Header closeButton>
-    //                 <Modal.Title id="contained-modal-title-vcenter">
-    //                     Editando Perfil
-    //                 </Modal.Title>
-    //             </Modal.Header>
-    //             <Modal.Body>
-    //                 <Form style={{ backgroundColor: '#ffffff', height: '40%', borderRadius: 30 }}>
-    //                     <input type="file" onChange={onImageChange} className="filetype" />
-    //                     <img src={image} alt="preview image" width="200" />
-    //                     <br></br>
-    //                     <TextField id="standard-basic" label="Nombre Completo" variant="standard" style={{ width: '90%' }} onChange={fullname => setfullname(fullname.target.value)} value={fullname} />
-    //                     <br></br>
-    //                     <br></br>
-    //                     <TextField id="standard-basic" label="Edad" type="number" variant="standard" style={{ width: '90%' }} onChange={age => setage(age.target.value)} value={age} />
-    //                     <br></br>
-    //                     <br></br>
-    //                     <LocalizationProvider dateAdapter={AdapterDateFns}>
-    //                         <DatePicker
-    //                             label="Fecha de nacimiento"
-    //                             value={value}
-    //                             onChange={(newValue) => {
-    //                                 setValue(newValue);
-    //                             }}
-    //                             renderInput={(params) => <TextField {...params} />}
-    //                         />
-    //                     </LocalizationProvider>
-    //                     <br></br>
-    //                     <br></br>
-    //                     <TextField id="standard-basic" label="Correo" variant="standard" style={{ width: '90%' }} onChange={email => setemail(email.target.value)} value={email} />
-    //                     <br></br>
-    //                     <br></br>
-    //                 </Form>
-    //             </Modal.Body>
-    //             <Modal.Footer>
-    //                 <Button onClick={props.onHide}>Cerrar</Button>
-    //                 <Button onClick={updateUserData}>Actualizar</Button>
-    //             </Modal.Footer>
-
-    //         </Modal>
-    //     );
-    // }
 
     useEffect(() => {
         getUserData();

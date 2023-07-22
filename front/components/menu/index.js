@@ -57,7 +57,7 @@ export default function Menu() {
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="me-auto">
                         <Nav.Link style={{ color: '#ffffff' }} onClick={handlePostsRoute}>Publicaciones</Nav.Link>
-                        <Nav.Link href="#pricing" style={{ color: '#ffffff' }} onClick={handleProfileRoute}>Perfil</Nav.Link>
+                        <Nav.Link style={{ color: '#ffffff' }} onClick={handleProfileRoute}>Perfil</Nav.Link>
                     </Nav>
                     <Nav style={{ color: '#ffffff' }}>
                         <Nav.Link style={{ color: '#ffffff' }} onClick={handleLogout}>Cerrar Sesión</Nav.Link>

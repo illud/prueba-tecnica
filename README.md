@@ -23,7 +23,7 @@ npm run start:dev
 ```
 
 ## Segundo las dependencias del front
-Ingresamos a la carpeta /front/prueba y ejecutamos los siguientes comando
+Ingresamos a la carpeta /front y ejecutamos los siguientes comando
 ```prisma
 # Esto instala las dependencias
 npm install
