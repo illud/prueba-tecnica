@@ -9,12 +9,14 @@ import { PrismaModule } from 'src/prisma/prisma.module';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { JwtService } from '../../utils/services/jwt/jwt.service';
 import { PostsRepository } from '../../infraestructure/repository/posts/posts.repository'
+import { PostsDeletePostUseCase } from '../../domain/usecase/posts/posts_deletepost.usecase';
+import { PostsUpdatePostUseCase } from '../../domain/usecase/posts/posts_updatepost.usecase';
 
 @Module({
   controllers: [PostsController],
   providers: [PostsCreateUseCase, PostsFindAllUserPostsUseCase,
     PostsFindAllOtherUserPostsUseCase,
     PostsFindAllUseCase,
-    PostsFindAllILikeUseCase, PostsRepository, PrismaModule, PrismaService, JwtService]
+    PostsFindAllILikeUseCase, PostsDeletePostUseCase, PostsUpdatePostUseCase, PostsRepository, PrismaModule, PrismaService, JwtService]
 })
 export class PostsModule { }

@@ -1,5 +1,5 @@
 {
-  "name": "prueba",
+  "name": "front",
   "private": true,
   "scripts": {
     "dev": "next dev",

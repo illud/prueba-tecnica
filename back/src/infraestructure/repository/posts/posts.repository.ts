@@ -17,6 +17,19 @@ export class PostsRepository {
         )
     }
 
+    async update(body) {
+        return await this.prismaService.posts.update(
+            {
+                where: {
+                    id: body.postId
+                },
+                data: {
+                    description: body.description
+                }
+            }
+        )
+    }
+
     async findAll() {
         return await this.prismaService.posts.findMany(
             {
@@ -63,6 +76,28 @@ export class PostsRepository {
                 },
                 orderBy: {
                     id: 'desc'
+                }
+            }
+        );
+    }
+
+    async delete(postId: number) {
+        await this.prismaService.posts_likes.deleteMany({
+            where: {
+                postId: postId
+            }
+        });
+
+        await this.prismaService.comments.deleteMany({
+            where: {
+                postId: postId
+            }
+        });
+
+        return await this.prismaService.posts.delete(
+            {
+                where: {
+                    id: postId
                 }
             }
         );

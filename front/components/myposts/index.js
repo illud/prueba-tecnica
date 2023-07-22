@@ -13,14 +13,29 @@ import { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 import Badge from "@mui/material/Badge";
 import { styled } from "@mui/material/styles";
-import ArrowForwardIosSharpIcon from "@mui/icons-material/ArrowForwardIosSharp";
+import Modal from '@mui/material/Modal';
+import Box from '@mui/material/Box';
 import MuiAccordion from "@mui/material/Accordion";
 import MuiAccordionSummary from "@mui/material/AccordionSummary";
 import MuiAccordionDetails from "@mui/material/AccordionDetails";
 import Avatar from '@mui/material/Avatar';
 import CardHeader from '@mui/material/CardHeader';
+import Form from 'react-bootstrap/Form';
+
 //zustand 
 import useStore from "../zustand";
+
+const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 4,
+};
 
 const Accordion = styled((props) => (
     <MuiAccordion disableGutters elevation={0} square {...props} />
@@ -69,6 +84,13 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
 
 export default function MyPosts() {
     const router = useRouter();
+    const handleCloseDelete = () => openDelete(false);
+
+    const [openDel, openDelete] = useState(false);
+
+    const handleClose = () => setOpen(false);
+    const [open, setOpen] = useState(false);
+
     const [post, setPost] = useState('');
 
     const [postsdata, setPostDatas] = useState([]);
@@ -120,6 +142,35 @@ export default function MyPosts() {
 
     }
 
+    const [postIdDelete, setPostIdDelete] = useState()
+
+    //Delete post function
+    const handleDeletePost = async () => {
+        try {
+            let deleteResponse = await fetch('http://localhost:3001/posts/delete-post/' + postIdDelete, {
+                method: "DELETE",
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + localStorage.getItem('token')
+                }
+            });
+
+            let deleteResponseDecoded = await deleteResponse.json()
+
+            if (deleteResponseDecoded.message) {
+                toast.warn("Hubo un error");
+            } else {
+                toast.success('Has eliminado la publicación');
+                setPost('');
+                openDelete(false);
+                await getPosts();
+            }
+        } catch (error) {
+            toast.warn("Hubo un error");
+        }
+
+    }
+
     const [comment, setcomment] = useState('');
     const [comments, setcomments] = useState([]);
 
@@ -157,6 +208,8 @@ export default function MyPosts() {
         }
 
     }
+
+
 
     const getComments = async (postId) => {
         const userData = {
@@ -239,6 +292,62 @@ export default function MyPosts() {
                 await getPostsLikes();
                 iLike();
             }
+
+        } catch (error) {
+            toast.warn("Hubo un error");
+        }
+
+    }
+
+    const [postIdUpdate, setPostIdUpdate] = useState()
+
+    const [postDescriptionUpdate, setPostDescriptionUpdate] = useState()
+
+
+
+
+    const handleCloseDel = (id) => {
+        setPostIdDelete(id)
+
+        openDelete(true);
+    }
+
+    const handleOpen = (id,
+        description) => {
+        setPostIdUpdate(id)
+        setPostDescriptionUpdate(description)
+
+        setOpen(true);
+    }
+
+    //handle update posts
+    const postUpdate = async () => {
+        const userData = {
+            "description": postDescriptionUpdate,
+            "postId": postIdUpdate
+        };
+
+        try {
+            let updatePostResponse = await fetch('http://localhost:3001/posts/update', {
+                method: "PUT",
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + localStorage.getItem('token')
+                },
+                body: JSON.stringify(userData)
+            });
+
+            let updatePostResponseDecoded = await updatePostResponse.json()
+
+            if (updatePostResponseDecoded.message) {
+                toast.warn("Hubo un error");
+            } else {
+                toast.success('Has actualizado el comentario');
+                getPosts();
+                setOpen(false);
+                setPost('');
+            }
+
 
         } catch (error) {
             toast.warn("Hubo un error");
@@ -355,6 +464,13 @@ export default function MyPosts() {
                     return (
                         <div key={index}>
                             <Card sx={{ minWidth: 275 }}>
+                                <Button variant="contained" style={{ float: 'right', backgroundColor: '#ff4081', color: '#ffffff', borderRadius: 50, width: '19%', marginLeft: '5px' }} onClick={() => handleCloseDel(data.id)}>
+                                    Eliminar
+                                </Button>
+                                <Button variant="contained" style={{ float: 'right', backgroundColor: '#448aff', color: '#ffffff', borderRadius: 50, width: '19%' }} onClick={() => handleOpen(data.id, data.description)}>
+                                    Editar
+                                </Button>
+
                                 <CardHeader
                                     avatar={
                                         <Avatar sx={{ bgcolor: '#1785E1' }} aria-label="recipe">
@@ -365,6 +481,8 @@ export default function MyPosts() {
                                     }
                                     title={data.users.fullname}
                                     subheader={getFormatedStringFromDays(data.createdAt)}
+
+
                                 />
                                 <CardContent>
                                     {/* <Typography variant="h5" component="div">
@@ -466,6 +584,49 @@ export default function MyPosts() {
                     )
                 })
             }
+
+            <Modal
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+            >
+                <Box sx={style}>
+                    <Form style={{ backgroundColor: '#ffffff', height: '40%', borderRadius: 30 }}>
+                        <TextField
+                            id="standard-multiline-static"
+                            label="Editando"
+                            multiline
+                            rows={4}
+                            variant="standard"
+
+                            style={{ minWidth: '100%' }}
+
+
+                            onChange={post => setPostDescriptionUpdate(post.target.value)}
+                            value={postDescriptionUpdate}
+                        />
+                        <br></br>
+                        <br></br>
+                        <Button style={{ backgroundColor: '#1785E1', color: '#ffffff', borderRadius: 50, width: '90%' }} onClick={() => postUpdate()} >Actualizar</Button>
+                    </Form>
+                </Box>
+            </Modal>
+
+            <Modal
+                open={openDel}
+                onClose={handleCloseDelete}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+            >
+                <Box sx={style}>
+                    <Form style={{ backgroundColor: '#ffffff', height: '40%', borderRadius: 30 }}>
+                        <p>Seguro que quieres eliminar la publicación?</p>
+                        <br></br>
+                        <Button style={{ backgroundColor: '#1785E1', color: '#ffffff', borderRadius: 50, width: '90%' }} onClick={() => handleDeletePost()} >Si</Button>
+                    </Form>
+                </Box>
+            </Modal>
         </div>
     )
 }
