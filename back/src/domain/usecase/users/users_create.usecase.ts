@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { BcryptService } from '../../../utils/services/bcrypt/bcrypt.service';
 import { UsersRepository } from '../../../infraestructure/repository/users/users.repository'
+import { UsersModel } from './users.model'
 
 @Injectable()
 export class UsersCreateUseCase {
@@ -8,7 +9,7 @@ export class UsersCreateUseCase {
         private usersRepository: UsersRepository,
         private bcryptService: BcryptService) { }
 
-    async execute(data) {
+    async execute(data: UsersModel) {
         const hashPassword = await this.bcryptService.generateSalt(data.password);
 
         return await this.usersRepository.create({

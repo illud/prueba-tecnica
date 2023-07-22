@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../../../prisma/prisma.service';
-
+import { PostsEntity } from './posts.entity'
 @Injectable()
-export class PostsRepository{
+export class PostsRepository {
     constructor(private readonly prismaService: PrismaService) { }
 
-    async create(data) {
+    async create(data: PostsEntity) {
         return await this.prismaService.posts.create(
             {
                 data: {
@@ -32,7 +32,7 @@ export class PostsRepository{
         );
     }
 
-    async findAllUserPosts(userId) {
+    async findAllUserPosts(userId: number) {
         return await this.prismaService.posts.findMany(
             {
                 where: {
@@ -50,7 +50,7 @@ export class PostsRepository{
         );
     }
 
-    async findAllOtherUserPosts(userId) {
+    async findAllOtherUserPosts(userId: number) {
         return await this.prismaService.posts.findMany(
             {
                 where: {
@@ -68,7 +68,7 @@ export class PostsRepository{
         );
     }
 
-    async findAllILike(userId) {
+    async findAllILike(userId: number) {
         return await this.prismaService.posts_likes.findMany(
             {
                 where: {

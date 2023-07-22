@@ -1,11 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../../../prisma/prisma.service';
+import { UsersEntity } from './users.entity';
 
 @Injectable()
 export class UsersRepository {
     constructor(private readonly prismaService: PrismaService) { }
 
-    async create(data) {
+    async create(data: UsersEntity) {
         return await this.prismaService.users.create(
             {
                 data: {
@@ -53,7 +54,7 @@ export class UsersRepository {
         return await this.prismaService.users.findMany();
     }
 
-    async findOne(userId) {
+    async findOne(userId: number) {
         return await this.prismaService.users.findUnique({
             where: {
                 id: userId

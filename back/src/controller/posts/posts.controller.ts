@@ -5,7 +5,7 @@ import { PostsFindAllOtherUserPostsUseCase } from '../../domain/usecase/posts/po
 import { PostsFindAllUseCase } from '../../domain/usecase/posts/posts_findall.usecase';
 import { PostsFindAllILikeUseCase } from '../../domain/usecase/posts/posts_findalllike.usecase';
 import { AuthGuard } from '../../utils/services/auth/jwt.auth.guard';
-
+import { PostsDto } from './posts.dto'
 @Controller('posts')
 export class PostsController {
     constructor(private postsCreateUseCase: PostsCreateUseCase,
@@ -16,7 +16,7 @@ export class PostsController {
 
     @UseGuards(AuthGuard)
     @Post()
-    async create(@Body() body) {
+    async create(@Body() body: PostsDto) {
         return await this.postsCreateUseCase.execute(body);
     }
 

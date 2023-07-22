@@ -6,7 +6,7 @@ export class UsersFindOneUseCase {
     constructor(
         private usersRepository: UsersRepository) { }
 
-    async execute(userId) {
+    async execute(userId: number) {
         return await this.usersRepository.findOne(userId);
     }
 }
