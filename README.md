@@ -21,6 +21,8 @@ npx prisma generate --schema src/prisma/schema.prisma
 # Y por ultimo corremos el back
 npm run start:dev
 ```
+# Swagger Documentación
+[Swagger](http://localhost:3001/api)
 
 ## Segundo las dependencias del front
 Ingresamos a la carpeta /front y ejecutamos los siguientes comando

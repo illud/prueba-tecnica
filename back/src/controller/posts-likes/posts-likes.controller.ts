@@ -3,6 +3,17 @@ import { PostsLikesCreateUseCase } from '../../domain/usecase/post_likes/posts_l
 import { PostsLikesFindAllUseCase } from '../../domain/usecase/post_likes/posts_likes_findall.usecase';
 import { AuthGuard } from '../../utils/services/auth/jwt.auth.guard';
 import { PostsLikesDto } from './posts_likes.dto'
+import {
+    ApiBearerAuth,
+    ApiOperation,
+    ApiResponse,
+    ApiProperty,
+    ApiBody,
+    ApiTags,
+} from '@nestjs/swagger';
+
+@ApiBearerAuth()
+@ApiTags('posts-likes')
 @Controller('posts-likes')
 export class PostsLikesController {
     constructor(private postsLikesCreateUseCase: PostsLikesCreateUseCase,

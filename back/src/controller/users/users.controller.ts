@@ -5,7 +5,18 @@ import { UsersUpdateUseCase } from '../../domain/usecase/users/users_update.usec
 import { UsersFindAllUseCase } from '../../domain/usecase/users/users_findall.usecase';
 import { UsersFindOneUseCase } from '../../domain/usecase/users/users_findone.usecase';
 import { AuthGuard } from '../../utils/services/auth/jwt.auth.guard';
-import { UsersDto } from './users.dto'
+import { UsersDto, UsersLoginDto } from './users.dto'
+import {
+    ApiBearerAuth,
+    ApiOperation,
+    ApiResponse,
+    ApiProperty,
+    ApiBody,
+    ApiTags,
+} from '@nestjs/swagger';
+
+@ApiBearerAuth()
+@ApiTags('users')
 @Controller('users')
 export class UsersController {
     constructor(private usersCreateUseCase: UsersCreateUseCase,
@@ -15,11 +26,13 @@ export class UsersController {
         private usersFindOneUseCase: UsersFindOneUseCase) { }
 
     @Post()
+    @ApiBody({ type: UsersDto })
     async create(@Body() body: UsersDto) {
         return await this.usersCreateUseCase.execute(body);
     }
 
     @Post('/login')
+    @ApiBody({ type: UsersLoginDto })
     login(@Body() body) {
         return this.usersLoginUseCase.execute(body);
     }

@@ -3,7 +3,17 @@ import { CommentsLikesCreateUseCase } from '../../domain/usecase/comments_likes/
 import { CommentsLikesFinAllUseCase } from '../../domain/usecase/comments_likes/comments_likes_findall.usecase';
 import { AuthGuard } from '../../utils/services/auth/jwt.auth.guard';
 import { CommentsLikesDto } from './comments_likes.dto';
+import {
+    ApiBearerAuth,
+    ApiOperation,
+    ApiResponse,
+    ApiProperty,
+    ApiBody,
+    ApiTags,
+} from '@nestjs/swagger';
 
+@ApiBearerAuth()
+@ApiTags('comments-likes')
 @Controller('comments-likes')
 export class CommentsLikesController {
     constructor(private cmmentsLikesCreateUseCase: CommentsLikesCreateUseCase,

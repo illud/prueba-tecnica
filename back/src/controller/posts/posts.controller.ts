@@ -8,6 +8,17 @@ import { PostsDeletePostUseCase } from '../../domain/usecase/posts/posts_deletep
 import { PostsUpdatePostUseCase } from '../../domain/usecase/posts/posts_updatepost.usecase';
 import { AuthGuard } from '../../utils/services/auth/jwt.auth.guard';
 import { PostsDto } from './posts.dto'
+import {
+    ApiBearerAuth,
+    ApiOperation,
+    ApiResponse,
+    ApiProperty,
+    ApiBody,
+    ApiTags,
+} from '@nestjs/swagger';
+
+@ApiBearerAuth()
+@ApiTags('posts')
 @Controller('posts')
 export class PostsController {
     constructor(private postsCreateUseCase: PostsCreateUseCase,

@@ -4,7 +4,17 @@ import { CommentsFindAllUseCase } from '../../domain/usecase/comments/comments_f
 import { CommentsFindByIdUseCase } from '../../domain/usecase/comments/comments_findallbyid.usecase';
 import { CommentsDto } from './comments.dto';
 import { AuthGuard } from '../../utils/services/auth/jwt.auth.guard';
+import {
+    ApiBearerAuth,
+    ApiOperation,
+    ApiResponse,
+    ApiProperty,
+    ApiBody,
+    ApiTags,
+} from '@nestjs/swagger';
 
+@ApiBearerAuth()
+@ApiTags('comments')
 @Controller('comments')
 export class CommentsController {
     constructor(private commentsCreateUseCase: CommentsCreateUseCase,
