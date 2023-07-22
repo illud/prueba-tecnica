@@ -2,6 +2,7 @@ import { Controller, Post, Body, Get, UseGuards } from '@nestjs/common';
 import { CommentsCreateUseCase } from '../../domain/usecase/comments/comments_create.usecase';
 import { CommentsFindAllUseCase } from '../../domain/usecase/comments/comments_findall.usecase';
 import { CommentsFindByIdUseCase } from '../../domain/usecase/comments/comments_findallbyid.usecase';
+import { CommentsDto } from './comments.dto';
 import { AuthGuard } from '../../utils/services/auth/jwt.auth.guard';
 
 @Controller('comments')
@@ -12,7 +13,7 @@ export class CommentsController {
 
     @UseGuards(AuthGuard)
     @Post()
-    async create(@Body() body) {
+    async create(@Body() body: CommentsDto) {
         return await this.commentsCreateUseCase.execute(body);
     }
 

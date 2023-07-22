@@ -2,7 +2,7 @@ import { Controller, Post, Body, Get, UseGuards } from '@nestjs/common';
 import { PostsLikesCreateUseCase } from '../../domain/usecase/post_likes/posts_likes_create.usecase';
 import { PostsLikesFindAllUseCase } from '../../domain/usecase/post_likes/posts_likes_findall.usecase';
 import { AuthGuard } from '../../utils/services/auth/jwt.auth.guard';
-
+import { PostsLikesDto } from './posts_likes.dto'
 @Controller('posts-likes')
 export class PostsLikesController {
     constructor(private postsLikesCreateUseCase: PostsLikesCreateUseCase,
@@ -10,7 +10,7 @@ export class PostsLikesController {
 
     @UseGuards(AuthGuard)
     @Post()
-    async create(@Body() body) {
+    async create(@Body() body: PostsLikesDto) {
         return await this.postsLikesCreateUseCase.execute(body);
     }
 

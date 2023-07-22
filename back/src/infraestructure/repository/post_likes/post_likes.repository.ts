@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../../../prisma/prisma.service';
-
+import { PostsLikesEntity } from './posts_likes.entity'
 @Injectable()
 export class PostsLikesRepository {
     constructor(private readonly prismaService: PrismaService) { }
 
-    async create(data) {
+    async create(data: PostsLikesEntity) {
         let searchForCreated = await this.prismaService.posts_likes.findFirst({
             where: {
                 postId: data.postId,

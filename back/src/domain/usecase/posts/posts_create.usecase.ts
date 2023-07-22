@@ -1,12 +1,12 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaService } from '../../../prisma/prisma.service';
 import { PostsRepository } from '../../../infraestructure/repository/posts/posts.repository'
+import { PostsModel } from './posts.model'
 
 @Injectable()
 export class PostsCreateUseCase {
     constructor(private postsRepository: PostsRepository) { }
 
-    async execute(data) {
+    async execute(data: PostsModel) {
         return await this.postsRepository.create(data)
     }
 }

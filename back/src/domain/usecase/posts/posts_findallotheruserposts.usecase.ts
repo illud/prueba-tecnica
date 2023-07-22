@@ -5,7 +5,7 @@ import { PostsRepository } from '../../../infraestructure/repository/posts/posts
 export class PostsFindAllOtherUserPostsUseCase {
     constructor(private postsRepository: PostsRepository) { }
 
-    async execute(userId) {
+    async execute(userId: number) {
         return await this.postsRepository.findAllOtherUserPosts(userId);
     }
 }

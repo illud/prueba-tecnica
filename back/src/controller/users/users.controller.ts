@@ -5,7 +5,7 @@ import { UsersUpdateUseCase } from '../../domain/usecase/users/users_update.usec
 import { UsersFindAllUseCase } from '../../domain/usecase/users/users_findall.usecase';
 import { UsersFindOneUseCase } from '../../domain/usecase/users/users_findone.usecase';
 import { AuthGuard } from '../../utils/services/auth/jwt.auth.guard';
-
+import { UsersDto } from './users.dto'
 @Controller('users')
 export class UsersController {
     constructor(private usersCreateUseCase: UsersCreateUseCase,
@@ -15,7 +15,7 @@ export class UsersController {
         private usersFindOneUseCase: UsersFindOneUseCase) { }
 
     @Post()
-    async create(@Body() body) {
+    async create(@Body() body: UsersDto) {
         return await this.usersCreateUseCase.execute(body);
     }
 
