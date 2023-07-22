@@ -1,0 +1,31 @@
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.ContainerHome{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  min-height: 100vh;
+  height: 100%;
+  border-radius: 2px;
+  background-image: url('https://images.pling.com/img/00/00/61/57/57/1557822/f591e88c4b03f3853f0fb696d7f92778bc2ea676c1351b8737e813db09d157b950bf.jpg');
+  background-repeat: 'no-repeat';
+  background-size: cover;
+  
+}
