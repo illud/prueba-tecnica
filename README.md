@@ -1,7 +1,4 @@
 # prueba-tecnica
-
-prueba-tecnica.
-
 ## Instalación
 
 Descarga nodejs [nodejs] (https://nodejs.org/es/).
@@ -36,9 +33,13 @@ yarn dev
 # Si da algun error de react app intentar instalar el siguiente paquete y volver a correr la app
 npm install create-react-app
 ```
+# El front corre en la siguiente url
+[http://localhost:3000](http://localhost:3000)
 
-## La base de datos que se usa es sqlite (Se usa SQLite para simplicidad)
+## La base de datos que se usa es sqlite (Se usa SQLite para simplicidad usando el ORM [PRISMA](https://www.prisma.io))
 
+Diagrama de base de datos
+![DBML](./readme_resources/prueba_tecnica_dbml.png)
 
 Si quieres ver la base de datos te recomiendo descargar la siquiete app
 (https://sqlitestudio.pl/)

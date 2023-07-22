@@ -1,0 +1,74 @@
+//// ------------------------------------------------------
+//// THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+//// ------------------------------------------------------
+
+Table Users {
+  id Int [pk, increment]
+  avatar String [not null]
+  fullname String [not null]
+  age Int [not null]
+  dateofborn String [not null]
+  email String [not null]
+  username String [not null]
+  password String [not null]
+  createdAt String [not null]
+  Posts Posts [not null]
+  Comments Comments [not null]
+  Comments_likes Comments_likes [not null]
+  Posts_likes Posts_likes [not null]
+}
+
+Table Posts {
+  id Int [pk, increment]
+  description String [not null]
+  users Users [not null]
+  userId Int [not null]
+  createdAt String [not null]
+  Comments Comments [not null]
+  Posts_likes Posts_likes [not null]
+}
+
+Table Comments {
+  id Int [pk, increment]
+  comment String [not null]
+  posts Posts [not null]
+  postId Int [not null]
+  users Users [not null]
+  userId Int [not null]
+  createdAt String [not null]
+  Comments_likes Comments_likes [not null]
+}
+
+Table Comments_likes {
+  id Int [pk, increment]
+  likes Boolean [not null]
+  comments Comments [not null]
+  commentId Int [not null]
+  users Users [not null]
+  userId Int [not null]
+  createdAt String [not null]
+}
+
+Table Posts_likes {
+  id Int [pk, increment]
+  likes Boolean [not null]
+  posts Posts [not null]
+  postId Int [not null]
+  users Users [not null]
+  userId Int [not null]
+  createdAt String [not null]
+}
+
+Ref: Posts.userId > Users.id
+
+Ref: Comments.postId > Posts.id
+
+Ref: Comments.userId > Users.id
+
+Ref: Comments_likes.commentId > Comments.id
+
+Ref: Comments_likes.userId > Users.id
+
+Ref: Posts_likes.postId > Posts.id
+
+Ref: Posts_likes.userId > Users.id
