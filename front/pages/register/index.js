@@ -35,7 +35,7 @@ export default function Register() {
             "password": password
         };
         try {
-            let loginResponse = await fetch('http://localhost:3001/users', {
+            let response = await fetch('http://localhost:3001/users', {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json'
@@ -43,7 +43,7 @@ export default function Register() {
                 body: JSON.stringify(userData)
             });
 
-            await loginResponse.json()
+            await response.json()
 
             if (fullname == "" || age == 0 || value == null || username == "" || password == "") {
                 toast.warn("Por favor llena todos los campos");

@@ -12,7 +12,12 @@ describe('JwtService', () => {
     service = module.get<JwtService>(JwtService);
   });
 
-  it('should be defined', () => {
-    expect(service).toBeDefined();
+  it('should generate token', () => {
+    expect(service.generateToken('user')).toEqual(expect.anything());
+  });
+
+  it('should validate token', async () => {
+    let token = service.generateToken('user');
+    await expect(service.validateToken(token)).resolves.toEqual(true);
   });
 });

@@ -12,7 +12,11 @@ describe('BcryptService', () => {
     service = module.get<BcryptService>(BcryptService);
   });
 
-  it('should be defined', () => {
-    expect(service).toBeDefined();
+  it('should encrypt password', async () => {
+    await expect(service.generateSalt('roca123')).resolves.toEqual(expect.anything());
+  });
+
+  it('should compareHash', async () => {
+    await expect(service.compareHash('roca123', '$2b$10$pLOIYBZl3jIg8kzUC5HCzejSbsPGQtbvlReFNzqszZKSPX6fmGSWe')).resolves.toEqual(true);
   });
 });

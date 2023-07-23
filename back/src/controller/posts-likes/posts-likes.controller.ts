@@ -5,9 +5,6 @@ import { AuthGuard } from '../../utils/services/auth/jwt.auth.guard';
 import { PostsLikesDto } from './posts_likes.dto'
 import {
     ApiBearerAuth,
-    ApiOperation,
-    ApiResponse,
-    ApiProperty,
     ApiBody,
     ApiTags,
 } from '@nestjs/swagger';
@@ -21,6 +18,7 @@ export class PostsLikesController {
 
     @UseGuards(AuthGuard)
     @Post()
+    @ApiBody({type: PostsLikesDto})
     async create(@Body() body: PostsLikesDto) {
         return await this.postsLikesCreateUseCase.execute(body);
     }

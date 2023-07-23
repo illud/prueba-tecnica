@@ -7,12 +7,9 @@ import { PostsFindAllILikeUseCase } from '../../domain/usecase/posts/posts_finda
 import { PostsDeletePostUseCase } from '../../domain/usecase/posts/posts_deletepost.usecase';
 import { PostsUpdatePostUseCase } from '../../domain/usecase/posts/posts_updatepost.usecase';
 import { AuthGuard } from '../../utils/services/auth/jwt.auth.guard';
-import { PostsDto } from './posts.dto'
+import { PostsDto, PostsMyPostsDto, PostsUpdateDto } from './posts.dto'
 import {
     ApiBearerAuth,
-    ApiOperation,
-    ApiResponse,
-    ApiProperty,
     ApiBody,
     ApiTags,
 } from '@nestjs/swagger';
@@ -31,19 +28,22 @@ export class PostsController {
 
     @UseGuards(AuthGuard)
     @Post()
+    @ApiBody({ type: PostsDto })
     async create(@Body() body: PostsDto) {
         return await this.postsCreateUseCase.execute(body);
     }
 
     @UseGuards(AuthGuard)
     @Post('/my-posts')
-    async findAllUserPosts(@Body() body) {
+    @ApiBody({ type: PostsMyPostsDto })
+    async findAllUserPosts(@Body() body: PostsMyPostsDto) {
         return await this.postsFindAllUserPostsUseCase.execute(body.userId);
     }
 
     @UseGuards(AuthGuard)
     @Post('/other-posts')
-    async findAllOtherUserPosts(@Body() body) {
+    @ApiBody({ type: PostsMyPostsDto })
+    async findAllOtherUserPosts(@Body() body: PostsMyPostsDto) {
         return await this.postsFindAllOtherUserPostsUseCase.execute(body.userId);
     }
 
@@ -61,13 +61,15 @@ export class PostsController {
 
     @UseGuards(AuthGuard)
     @Put('/update')
-    async updatePost(@Body() body) {
+    @ApiBody({ type: PostsUpdateDto })
+    async updatePost(@Body() body: PostsUpdateDto) {
         return await this.postsUpdatePostUseCase.execute(body);
     }
 
     @UseGuards(AuthGuard)
     @Post('i-like')
-    async findAllILike(@Body() body) {
+    @ApiBody({ type: PostsMyPostsDto })
+    async findAllILike(@Body() body: PostsMyPostsDto) {
         return await this.postsFindAllILikeUseCase.execute(body.userId);
     }
 

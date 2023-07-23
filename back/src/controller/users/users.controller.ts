@@ -5,12 +5,9 @@ import { UsersUpdateUseCase } from '../../domain/usecase/users/users_update.usec
 import { UsersFindAllUseCase } from '../../domain/usecase/users/users_findall.usecase';
 import { UsersFindOneUseCase } from '../../domain/usecase/users/users_findone.usecase';
 import { AuthGuard } from '../../utils/services/auth/jwt.auth.guard';
-import { UsersDto, UsersLoginDto } from './users.dto'
+import { UsersDto, UsersLoginDto, UsersUpdateDto, UsersProfileDto } from './users.dto'
 import {
     ApiBearerAuth,
-    ApiOperation,
-    ApiResponse,
-    ApiProperty,
     ApiBody,
     ApiTags,
 } from '@nestjs/swagger';
@@ -33,12 +30,13 @@ export class UsersController {
 
     @Post('/login')
     @ApiBody({ type: UsersLoginDto })
-    login(@Body() body) {
+    login(@Body() body: UsersLoginDto) {
         return this.usersLoginUseCase.execute(body);
     }
 
     @Post('/update')
-    update(@Body() body) {
+    @ApiBody({ type: UsersUpdateDto })
+    update(@Body() body: UsersUpdateDto) {
         return this.usersUpdateUseCase.execute(body);
     }
 
@@ -49,7 +47,8 @@ export class UsersController {
     }
 
     @Post('/profile')
-    profile(@Body() body) {
+    @ApiBody({ type: UsersProfileDto })
+    profile(@Body() body: UsersProfileDto) {
         return this.usersFindOneUseCase.execute(body.userId);
     }
 

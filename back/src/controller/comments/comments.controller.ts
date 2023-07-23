@@ -6,9 +6,6 @@ import { CommentsDto } from './comments.dto';
 import { AuthGuard } from '../../utils/services/auth/jwt.auth.guard';
 import {
     ApiBearerAuth,
-    ApiOperation,
-    ApiResponse,
-    ApiProperty,
     ApiBody,
     ApiTags,
 } from '@nestjs/swagger';
@@ -23,6 +20,7 @@ export class CommentsController {
 
     @UseGuards(AuthGuard)
     @Post()
+    @ApiBody({type: CommentsDto})
     async create(@Body() body: CommentsDto) {
         return await this.commentsCreateUseCase.execute(body);
     }

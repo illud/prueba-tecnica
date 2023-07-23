@@ -21,7 +21,7 @@ import MuiAccordionDetails from "@mui/material/AccordionDetails";
 import Avatar from '@mui/material/Avatar';
 import CardHeader from '@mui/material/CardHeader';
 import Form from 'react-bootstrap/Form';
-
+import { getFormatedStringFromDays } from '../utils/utils'
 //zustand 
 import useStore from "../zustand";
 
@@ -116,7 +116,7 @@ export default function MyPosts() {
         };
 
         try {
-            let loginResponse = await fetch('http://localhost:3001/posts', {
+            let response = await fetch('http://localhost:3001/posts', {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json',
@@ -125,9 +125,9 @@ export default function MyPosts() {
                 body: JSON.stringify(userData)
             });
 
-            let loginResponsedecoded = await loginResponse.json()
+            let responseDecoded = await response.json()
 
-            if (loginResponsedecoded.message) {
+            if (responseDecoded.message) {
                 toast.warn("Hubo un error");
             } else {
                 toast.success('Has echo una nueva publicación');
@@ -183,7 +183,7 @@ export default function MyPosts() {
         };
 
         try {
-            let loginResponse = await fetch('http://localhost:3001/comments', {
+            let response = await fetch('http://localhost:3001/comments', {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json',
@@ -192,9 +192,9 @@ export default function MyPosts() {
                 body: JSON.stringify(userData)
             });
 
-            let loginResponsedecoded = await loginResponse.json()
+            let responseDecoded = await response.json()
 
-            if (loginResponsedecoded.message) {
+            if (responseDecoded.message) {
                 toast.warn("Hubo un error");
             } else {
                 toast.success('Has escrito un comentario');
@@ -269,7 +269,7 @@ export default function MyPosts() {
             "userId": parseInt(localStorage.getItem('id'))
         };
         try {
-            let loginResponse = await fetch('http://localhost:3001/posts-likes', {
+            let response = await fetch('http://localhost:3001/posts-likes', {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json',
@@ -278,12 +278,12 @@ export default function MyPosts() {
                 body: JSON.stringify(userData)
             });
 
-            let loginResponsedecoded = await loginResponse.json()
+            let responseDecoded = await response.json()
 
-            if (loginResponsedecoded.message) {
+            if (responseDecoded.message) {
                 toast.warn("Hubo un error");
             } else {
-                if (loginResponsedecoded.post == "Se Agrego a los que te gusta") {
+                if (responseDecoded.post == "Se Agrego a los que te gusta") {
                     toast.success('Se agrego a los que te gustan');
                 } else {
                     toast.warn('Se quito de los que te gustan');
@@ -353,26 +353,6 @@ export default function MyPosts() {
             toast.warn("Hubo un error");
         }
 
-    }
-
-    function getFormatedStringFromDays(date) {
-        let diffTime = new Date().valueOf() - new Date(date).valueOf();
-        let days = diffTime / (24 * 60 * 60 * 1000);
-        let hours = (days % 1) * 24;
-        let minutes = (hours % 1) * 60;
-        let secs = (minutes % 1) * 60;
-        [days, hours, minutes, secs] = [Math.floor(days), Math.floor(hours), Math.floor(minutes), Math.floor(secs)]
-
-
-
-        var years = Math.floor(Math.abs(days) / 365);
-        var months = Math.floor(Math.abs(days) % 365 / 30);
-        var dayss = Math.floor(Math.abs(days) % 365 % 30);
-
-        var yearsDisplay = years > 0 ? years + (years == 1 ? " año, " : " años, ") : "";
-        var monthsDisplay = months > 0 ? months + (months == 1 ? " mes, " : " meses, ") : "";
-        var daysDisplay = dayss > 0 ? Math.abs(days) + (dayss == 1 ? " día," : " días,") : "";
-        return yearsDisplay + monthsDisplay + daysDisplay + ' ' + Math.abs(hours) + 'h' + ', ' + Math.abs(minutes) + 'm' + ', ' + Math.abs(secs) + 's';
     }
 
     const getPosts = async () => {
