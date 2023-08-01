@@ -2,6 +2,14 @@
 
 [[repositorio](https://github.com/saturnavt/prueba-tecnica)](https://github.com/saturnavt/prueba-tecnica)
 
+## Docker
+Corre el siguiente comando
+```sh
+docker-compose up -d
+
+# Luego ve a la siguiente url
+http://localhost:3000
+```
 ## Instalación
 
 Descarga nodejs [nodejs] (https://nodejs.org/es/).
@@ -73,8 +81,7 @@ el archivo se llama dev.db
 
 1. Recuperar contraseña
 2. Notificacion por correo
-3. Docker
-4. Solo se hicieron algunos test unitarios del back los cuales se pueden probar ingresando a la carpeta del back y ejecutando en consola los siguiente comandos
+3. Solo se hicieron algunos test unitarios del back los cuales se pueden probar ingresando a la carpeta del back y ejecutando en consola los siguiente comandos
 - yarn test src/utils/services/bcrypt/bcrypt.service.spec.ts -t
 - yarn test src/utils/services/jwt/jwt.service.spec.ts -t
 

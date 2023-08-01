@@ -1,0 +1,21 @@
+version: '3.8'
+services:
+  nestjs:
+    build:
+      context: ./back
+    ports:
+      - '3001:3001'
+    volumes:
+      - ./back:/back
+    working_dir: /back
+    command: npm start
+
+  nextjs:
+    build:
+      context: ./front
+    ports:
+      - '3000:3000'
+    volumes:
+      - ./front:/front
+    working_dir: /front
+    command: npm run dev
